@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
 import PropTypes from "prop-types";
+import { useContext, useState } from "react";
 import { ReservationContext } from "../Contexts/ReservationContext";
 
 export default function VehiculeCard({
@@ -11,7 +11,6 @@ export default function VehiculeCard({
   const { reservationFormData, updateReservationFormData } =
     useContext(ReservationContext);
 
-  // Utiliser useState pour stocker les valeurs aléatoires
   const [travelTime] = useState(
     reservationFormData.selectedShipsData[index]?.travelTime ||
       Math.floor(Math.random() * 41 + 10)
@@ -22,7 +21,6 @@ export default function VehiculeCard({
   );
 
   const handleSelect = () => {
-    // Mettre à jour les données du vaisseau dans le contexte
     updateReservationFormData({
       ...reservationFormData,
       selectedShipIndex: index,
@@ -40,7 +38,6 @@ export default function VehiculeCard({
 
   return (
     <article className={selected ? "selected" : "none"}>
-      <img src={ship.image} alt={ship.name} />
       <h3>{ship.name}</h3>
       <p>Travel time : {travelTime} days</p>
       <p>Price : {price} credits</p>

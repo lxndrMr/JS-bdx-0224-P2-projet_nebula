@@ -11,7 +11,7 @@ function DropdownTraveller({ value, handleSelect }) {
         name="travellers"
         id="selectNumberTraveller"
         value={value}
-        onChange={(e) => handleSelect(e.target.value)}
+        onChange={(e) => handleSelect(Number(e.target.value))}
         className="dropDownTravellerSelect"
       >
         {[...Array(25).keys()].map((number) => (

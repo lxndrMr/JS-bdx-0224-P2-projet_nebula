@@ -14,7 +14,6 @@ function Vehicule({ vehicules }) {
       <section className="cards">
         {vehicules.map((vehicule) => (
           <section key={vehicule.id} className="cardVehicule">
-            <img className="vehiculeImg" src={vehicule.img} alt="img" />
             <h2 className="vehiculeName">{vehicule.nom} </h2>
             <p>Description: {vehicule.description} </p>
             <article className="carac">
@@ -38,8 +37,7 @@ Vehicule.propTypes = {
   vehicules: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      isFav: PropTypes.bool.isRequired,
+      nom: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

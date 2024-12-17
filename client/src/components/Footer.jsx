@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import discord from "../assets/images/discord-icon-svgrepo-com.svg";
+import slack from "../assets/images/slack-tile.svg";
 import "../styles/Footer.scss";
 
 function Footer() {
@@ -18,10 +20,7 @@ function Footer() {
         rel="noreferrer"
         aria-label="link to Discord"
       >
-        <img
-          src="/src/assets/images/discord-icon-svgrepo-com.svg"
-          alt="icon discord"
-        />
+        <img src={discord} alt="icon discord" />
       </a>
       <a
         className="slackLink"
@@ -30,7 +29,7 @@ function Footer() {
         rel="noreferrer"
         aria-label="link to Slack"
       >
-        <img src="/src/assets/images/slack-tile.svg" alt="icon slack" />
+        <img src={slack} alt="icon slack" />
       </a>
       <p>
         The images used do not belong to us, they come from the Star-Citizen

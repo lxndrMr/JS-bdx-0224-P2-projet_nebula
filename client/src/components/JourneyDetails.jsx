@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,6 +6,7 @@ import {
   Modal,
   ModalOverlay,
 } from "react-aria-components";
+import { Link } from "react-router-dom";
 import { ButtonContext } from "../Contexts/ButtonContext";
 import { ReservationContext } from "../Contexts/ReservationContext";
 import { ShipContext } from "../Contexts/ShipContext";
@@ -18,12 +18,19 @@ export default function JourneyDetails() {
   const { ships } = useContext(ShipContext);
   const { selectedShipIndex, selectedShipsData } = reservationFormData;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleClick = () => {
     setIsButtonVisible(true);
+    setIsModalOpen(true);
   };
 
   const handleModifyClick = () => {
     setIsButtonVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const { selectedTripType, selectedReturnDate } = reservationFormData;
@@ -36,18 +43,18 @@ export default function JourneyDetails() {
       : {};
 
   return (
-    <section className="JourneyDetails">
+    <section className="JourneyDetails" inert={isModalOpen ? "" : undefined}>
       <h2>Summary</h2>
       <article>
         <h3>Details :</h3>
         {!isButtonVisible && (
-          <a href=" # " onClick={handleModifyClick}>
+          <Button href="#" onClick={handleModifyClick}>
             Modify
             <img
               src="src/assets/images/ModifyIcon.svg"
               alt="modify your informations"
             />
-          </a>
+          </Button>
         )}
         <ul>
           <li>Departure : {reservationFormData.selectedDeparture}</li>
@@ -79,30 +86,30 @@ export default function JourneyDetails() {
       </article>
       <DialogTrigger>
         {!isButtonVisible && (
-          <Button type="button" onClick={handleClick}>
+          <Button type="button" onPress={handleClick}>
             Confirm & Pay
           </Button>
         )}
-        <ModalOverlay className="modal-overlay">
-          <Modal className="modal" />
-          <Dialog>
-            {() => (
-              <>
-                <p>Travel price : {selectedShipData.price} credits.</p>
-                <p className="scan">Retinal scan in progress...</p>
-                <img
-                  src="https://cdnl.iconscout.com/lottie/premium/thumb/eye-scanner-5456745-4561468.gif"
-                  width={300}
-                  alt="Retinnal scan"
-                />
-                <Link className="ticketLink" to="/yourTrip">
-                  Your trip
-                </Link>
-              </>
-            )}
-          </Dialog>
-          <Modal />
-        </ModalOverlay>
+        {isModalOpen && (
+          <ModalOverlay className="modal-overlay" onClose={handleModalClose}>
+            <Modal className="modal">
+              <Dialog>
+                <>
+                  <p>Travel price : {selectedShipData.price} credits.</p>
+                  <p className="scan">Retinal scan in progress...</p>
+                  <img
+                    src="https://cdnl.iconscout.com/lottie/premium/thumb/eye-scanner-5456745-4561468.gif"
+                    width={300}
+                    alt="Retinal scan"
+                  />
+                  <Link className="ticketLink" to="/yourTrip">
+                    Your trip
+                  </Link>
+                </>
+              </Dialog>
+            </Modal>
+          </ModalOverlay>
+        )}
       </DialogTrigger>
     </section>
   );

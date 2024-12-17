@@ -1,10 +1,10 @@
 import { PropTypes } from "prop-types";
 import {
-  Modal,
-  ModalOverlay,
+  Button,
   Dialog,
   DialogTrigger,
-  Button,
+  Modal,
+  ModalOverlay,
 } from "react-aria-components";
 
 import("../styles/DestinationCard.scss");
@@ -47,8 +47,12 @@ function DestinationCard({ title, thumbnail, translation }) {
 
 DestinationCard.propTypes = {
   title: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string,
   translation: PropTypes.string.isRequired,
+};
+
+DestinationCard.defaultProps = {
+  thumbnail: "../assets/images/twisc020524.jpg",
 };
 
 export default DestinationCard;

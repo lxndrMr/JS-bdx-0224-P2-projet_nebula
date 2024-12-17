@@ -1,5 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/images/nebula-logo.svg";
+import burger from "../assets/images/rectangle-Nav.svg";
 import "../styles/NavBar.scss";
 
 function NavBar() {
@@ -54,11 +56,7 @@ function NavBar() {
   return (
     <>
       <a href="/">
-        <img
-          className="logo"
-          src="/src/assets/images/nebula-logo.svg"
-          alt="logo nebula"
-        />
+        <img className="logo" src={logo} alt="logo nebula" />
       </a>
       <nav ref={menuRef}>
         <button
@@ -67,21 +65,9 @@ function NavBar() {
           className="burgerMenu"
           onClick={updateMenu}
         >
-          <img
-            className={burgerClass}
-            src="/src/assets/images/rectangle-Nav.svg"
-            alt=""
-          />
-          <img
-            className={burgerClass}
-            src="/src/assets/images/rectangle-Nav.svg"
-            alt=""
-          />
-          <img
-            className={burgerClass}
-            src="/src/assets/images/rectangle-Nav.svg"
-            alt=""
-          />
+          <img className={burgerClass} src={burger} alt="" />
+          <img className={burgerClass} src={burger} alt="" />
+          <img className={burgerClass} src={burger} alt="" />
         </button>
         <ul className={menuClass}>
           <li>
@@ -116,7 +102,7 @@ function NavBar() {
               Traffic info
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="/yourTrip"
               onClick={updateMenu}
@@ -124,7 +110,7 @@ function NavBar() {
             >
               Your trip
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link
               to="/contact"

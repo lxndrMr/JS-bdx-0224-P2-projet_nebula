@@ -1,7 +1,8 @@
 import { useContext } from "react";
+import ticketImage from "../assets/images/TicketNebula.png";
 import JourneyDetails from "../components/JourneyDetails";
-import "../styles/YourTrip.scss";
 import { ReservationContext } from "../Contexts/ReservationContext";
+import "../styles/YourTrip.scss";
 
 export default function YourTrip() {
   const { reservationFormData } = useContext(ReservationContext);
@@ -28,9 +29,9 @@ export default function YourTrip() {
           </ul>
         </article>
         <p>Click here to download your ticket :</p>
-        <button type="button" aria-label="Download">
+        <a href={ticketImage} download="TicketNebula.png" className="button">
           Download
-        </button>
+        </a>
       </section>
     </>
   );

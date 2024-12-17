@@ -1,60 +1,46 @@
 import Spline from "@splinetool/react-spline";
 import { useEffect, useState } from "react";
 import { useIntro } from "../Contexts/IntroContext";
-import TopPlanet from "../components/TopPlanet";
 import HomeCards from "../components/HomeCards";
 import ReservationModule from "../components/ReservationModule";
+import TopPlanet from "../components/TopPlanet";
 import "../styles/app.scss";
 
+const path = import.meta.env.VITE_STARCITIZEN_API_URL;
+
 function Home() {
-  const [thumbnail1, setThumbnail1] = useState({ url: "", title: "" });
-
-  const [thumbnailUrl2, setThumbnailUrl2] = useState({ url: "", title: "" });
-
-  const [thumbnailUrl3, setThumbnailUrl3] = useState({ url: "", title: "" });
-
-  const [thumbnailUrl4, setThumbnailUrl4] = useState({ url: "", title: "" });
-
-  const [thumbnailUrl5, setThumbnailUrl5] = useState({ url: "", title: "" });
-
-  const [thumbnailUrl6, setThumbnailUrl6] = useState({ url: "", title: "" });
+  const [thumbnails, setThumbnails] = useState(
+    Array(6).fill({ url: "", titre: "" })
+  );
 
   useEffect(() => {
-    fetch("https://api.star-citizen.wiki/api/galactapedia/0Qlx4dQnxL")
-      .then((response) => response.json())
-      .then((data) => {
-        setThumbnail1({ url: data.data.thumbnail, title: data.data.title });
-      });
+    const ids = [
+      "0Qlx4dQnxL",
+      "RegWGPlxqy",
+      "RX3rnQ3XqM",
+      "VarAoYEQYd",
+      "RkGGjdOwQz",
+      "0qaPo2JOj1",
+    ];
 
-    fetch("https://api.star-citizen.wiki/api/galactapedia/RegWGPlxqy")
-      .then((response) => response.json())
-      .then((data) => {
-        setThumbnailUrl2({ url: data.data.thumbnail, title: data.data.title });
-      });
+    const fetchThumbnails = async () => {
+      try {
+        const responses = await Promise.all(
+          ids.map((id) => fetch(`${path}${id}`).then((res) => res.json()))
+        );
 
-    fetch("https://api.star-citizen.wiki/api/galactapedia/RX3rnQ3XqM")
-      .then((response) => response.json())
-      .then((data) => {
-        setThumbnailUrl3({ url: data.data.thumbnail, title: data.data.title });
-      });
+        const newThumbnails = responses.map(({ data }) => ({
+          url: data.thumbnail,
+          titre: data.title,
+        }));
 
-    fetch("https://api.star-citizen.wiki/api/galactapedia/VarAoYEQYd")
-      .then((response) => response.json())
-      .then((data) => {
-        setThumbnailUrl4({ url: data.data.thumbnail, title: data.data.title });
-      });
+        setThumbnails(newThumbnails);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-    fetch("https://api.star-citizen.wiki/api/galactapedia/RkGGjdOwQz")
-      .then((response) => response.json())
-      .then((data) => {
-        setThumbnailUrl5({ url: data.data.thumbnail, title: data.data.title });
-      });
-
-    fetch("https://api.star-citizen.wiki/api/galactapedia/0qaPo2JOj1")
-      .then((response) => response.json())
-      .then((data) => {
-        setThumbnailUrl6({ url: data.data.thumbnail, title: data.data.title });
-      });
+    fetchThumbnails();
   }, []);
   const { isVisible, changeState } = useIntro();
 
@@ -76,22 +62,22 @@ function Home() {
       <ReservationModule />
       <HomeCards
         sectionTitle="Popular"
-        planetTitleLeft={thumbnail1.title}
-        planetTitleMid={thumbnailUrl2.title}
-        planetTitleRight={thumbnailUrl3.title}
-        imageLeft={thumbnail1.url}
-        imageMid={thumbnailUrl2.url}
-        imageRight={thumbnailUrl3.url}
+        planetTitleLeft={thumbnails[0]?.titre}
+        planetTitleMid={thumbnails[1]?.titre}
+        planetTitleRight={thumbnails[2]?.titre}
+        imageLeft={thumbnails[0]?.url}
+        imageMid={thumbnails[1]?.url}
+        imageRight={thumbnails[2]?.url}
         descriptionCards="Discover the 3 Humans' Favorite Planets"
       />
       <HomeCards
         sectionTitle="Close to you"
-        planetTitleLeft={thumbnailUrl4.title}
-        planetTitleMid={thumbnailUrl5.title}
-        planetTitleRight={thumbnailUrl6.title}
-        imageLeft={thumbnailUrl4.url}
-        imageMid={thumbnailUrl5.url}
-        imageRight={thumbnailUrl6.url}
+        planetTitleLeft={thumbnails[3]?.titre}
+        planetTitleMid={thumbnails[4]?.titre}
+        planetTitleRight={thumbnails[5]?.titre}
+        imageLeft={thumbnails[3]?.url}
+        imageMid={thumbnails[4]?.url}
+        imageRight={thumbnails[5]?.url}
         descriptionCards="Discover the 3 planets closest to you"
       />
     </>

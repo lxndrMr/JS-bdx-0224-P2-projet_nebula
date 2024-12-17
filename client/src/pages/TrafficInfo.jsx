@@ -1,3 +1,4 @@
+import traffic from "../assets/images/map.png";
 import "../styles/TrafficInfo.scss";
 
 export default function TrafficInfo() {
@@ -33,10 +34,7 @@ export default function TrafficInfo() {
   return (
     <main className="trafficPage">
       <h1>Traffic informations</h1>
-      <img
-        src="\src\assets\images\map.png"
-        alt="Network of the available systems"
-      />
+      <img src={traffic} alt="Network of the available systems" />
       <figcaption>Network of the available systems</figcaption>
       <section className="trafficSection">
         {news.map((item) => (

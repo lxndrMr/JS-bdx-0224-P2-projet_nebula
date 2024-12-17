@@ -5,7 +5,7 @@ import "../styles/OurDestination.scss";
 
 function OurDestination() {
   const { galactapediaData } = useContext(GalactapediaContext);
-  const path = import.meta.env.VITE_STAR_CITIZEN_API;
+  const path = import.meta.env.VITE_STARCITIZEN_API_URL;
 
   const [planetData, setPlanetData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,12 +15,16 @@ function OurDestination() {
       try {
         const dataPromises = galactapediaData.map(async (planet) => {
           const response = await fetch(`${path}${planet.id}`);
+
           const { data } = await response.json();
-          const { title, thumbnail, english } = data;
-          const { translation } = english.data;
-          return { id: planet.id, title, thumbnail, translation };
+
+          const { title, thumbnail, translations } = data;
+
+          const translation = translations.en_EN;
+          return { id: data.id, title, thumbnail, translation };
         });
         const resolvedData = await Promise.all(dataPromises);
+
         setPlanetData(resolvedData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -28,7 +32,7 @@ function OurDestination() {
     };
 
     fetchData();
-  }, []);
+  }, [galactapediaData, path]);
 
   const filteredPlanets = planetData.filter((planet) =>
     planet.title.toLowerCase().includes(searchTerm.toLowerCase())
