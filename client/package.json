@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build --outDir public",
+    "build": "vite build --outDir client",
     "preview": "vite preview",
     "vercel-build": "npm install"
   },
