@@ -1,3 +1,4 @@
+import arrow from "../assets/images/icons8-fusée-100.png";
 import "../styles/Arrow.scss";
 
 function Arrow() {
@@ -9,11 +10,7 @@ function Arrow() {
         window.scrollTo(0, 0);
       }}
     >
-      <img
-        className="arrow"
-        src="/src/assets/images/icons8-fusée-100.png"
-        alt="Arrow"
-      />
+      <img className="arrow" src={arrow} alt="Arrow" />
       <p className="returnText">return top</p>
     </button>
   );
